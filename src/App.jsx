@@ -19,7 +19,7 @@ const App = () => {
     getData();
   }, []);
 
-  if (loading)
+  if (loading) {
     return (
       <p
         className="App"
@@ -31,26 +31,18 @@ const App = () => {
         Carregando...
       </p>
     );
-
-  function convertNumber(event) {
-    event.preventDefault();
-
-    setValue(value);
   }
 
   return (
     <div className="App">
       <h1 className="title">
         Cotação do Dólar:{' '}
-        <span className="dolar">
-          R$ {Math.round(parseInt(data)).toFixed(2)}
-        </span>
+        <span className="dolar">R$ {Number(data).toFixed(2)}</span>
       </h1>
       <form className="form">
         <label htmlFor="valor">Informe o valor</label>
         <input
           type="number"
-          placeholder="000"
           id="valor"
           name="valor"
           value={value}
@@ -61,7 +53,10 @@ const App = () => {
         <div className="result">
           <h1>
             <span className="dolar">
-              R$ {Math.round(value * data).toFixed(2)}
+              {Number(data * value).toLocaleString('pt-br', {
+                style: 'currency',
+                currency: 'BRL',
+              })}
             </span>
           </h1>
         </div>
